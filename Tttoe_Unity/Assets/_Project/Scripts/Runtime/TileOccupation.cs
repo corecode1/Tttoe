@@ -1,14 +1,15 @@
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace com.tttoe.runtime
 {
     [DebuggerDisplay("{GetName()}")]
-    public readonly struct TileOccupation
+    public readonly struct TileOccupation : IEquatable<TileOccupation>
     {
-        public static readonly TileOccupation NonOccupied = new(1);
-        public static readonly TileOccupation Player1 = new(2);
-        public static readonly TileOccupation Player2 = new(3);
+        public static readonly TileOccupation NonOccupied = new(0);
+        public static readonly TileOccupation Player1 = new(1);
+        public static readonly TileOccupation Player2 = new(2);
 
         private static readonly Dictionary<int, string> NameLookup;
 
@@ -28,21 +29,35 @@ namespace com.tttoe.runtime
         {
             _value = value;
         }
+        
+        public string GetName()
+        {
+            return NameLookup[_value];
+        }
 
-        // it's safe to overload only equality operators since we're not using TileOccupation struct in dictionaries or hashmaps
         public static bool operator ==(TileOccupation tile1, TileOccupation tile2)
         {
-            return tile1._value == tile2._value;
+            return tile1.Equals(tile2);
         }
 
         public static bool operator !=(TileOccupation tile1, TileOccupation tile2)
         {
-            return !(tile1 == tile2);
+            return !tile1.Equals(tile2);
+        }
+        
+        public bool Equals(TileOccupation other)
+        {
+            return _value == other._value;
         }
 
-        public string GetName()
+        public override bool Equals(object obj)
         {
-            return NameLookup[_value];
+            return obj is TileOccupation other && Equals(other);
+        }
+
+        public override int GetHashCode()
+        {
+            return _value;
         }
     }
 }
