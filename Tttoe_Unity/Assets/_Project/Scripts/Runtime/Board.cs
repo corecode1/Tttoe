@@ -3,7 +3,7 @@ using com.tttoe.runtime.Interfaces;
 
 namespace com.tttoe.runtime
 {
-    public class Board
+    public class Board : IBoard
     {
         private TileOccupation[,] _tiles;
 
