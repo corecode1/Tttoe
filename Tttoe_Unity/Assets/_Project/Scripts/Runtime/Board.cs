@@ -1,3 +1,4 @@
+using System;
 using com.tttoe.runtime.Interfaces;
 
 namespace com.tttoe.runtime
@@ -10,21 +11,28 @@ namespace com.tttoe.runtime
 
         public Board(IConfig config)
         {
+            if (config == null)
+            {
+                throw new ArgumentNullException(nameof(config));
+            }
+
+            Size = config.BoardSize;
+            _tiles = new TileOccupation[Size, Size];
         }
         
         public void SetTile(BoardTilePosition position, TileOccupation occupation)
         {
-            throw new System.NotImplementedException();
+            _tiles[position.Row, position.Column] = occupation;
         }
 
         public TileOccupation GetTile(BoardTilePosition position)
         {
-            throw new System.NotImplementedException();
+            return _tiles[position.Row, position.Column];
         }
 
         public bool IsTileOccupied(BoardTilePosition position)
         {
-            throw new System.NotImplementedException();
+            return _tiles[position.Row, position.Column] != TileOccupation.NonOccupied;
         }
     }
 }

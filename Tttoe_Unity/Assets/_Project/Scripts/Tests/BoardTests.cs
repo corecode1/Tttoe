@@ -33,7 +33,7 @@ namespace com.tttoe.tests
         public void TestDefaultTileOccupation()
         {
             var board = Container.Resolve<Board>();
-            Assert.AreEqual(board.IsTileOccupied(default), TileOccupation.NonOccupied);
+            Assert.AreEqual(board.GetTile(default), TileOccupation.NonOccupied);
         }
 
         [Test]
@@ -49,7 +49,7 @@ namespace com.tttoe.tests
             var board = Container.Resolve<Board>();
             var expectedOccupation = TileOccupation.Player1;
             board.SetTile(_testBoardPosition, expectedOccupation);
-            Assert.IsTrue(board.IsTileOccupied(default));
+            Assert.IsTrue(board.IsTileOccupied(_testBoardPosition));
         }
         
         [Test]
