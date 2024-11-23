@@ -3,6 +3,7 @@ using com.tttoe.runtime;
 using com.tttoe.runtime.Interfaces;
 using Moq;
 using NUnit.Framework;
+using UnityEngine;
 using Zenject;
 
 namespace com.tttoe.tests
@@ -18,7 +19,7 @@ namespace com.tttoe.tests
         {
             var config = new Mock<IConfig>();
             config.SetupGet(mock => mock.BoardSize).Returns(TestBoardSize);
-            Container.BindInstance(config);
+            Container.BindInstance(config.Object);
             Container.Bind<Board>().AsSingle();
         }
 
@@ -43,12 +44,21 @@ namespace com.tttoe.tests
         }
         
         [Test]
+        public void TestIsTileOccupiedReturnsTrue()
+        {
+            var board = Container.Resolve<Board>();
+            var expectedOccupation = TileOccupation.Player1;
+            board.SetTile(_testBoardPosition, expectedOccupation);
+            Assert.IsTrue(board.IsTileOccupied(default));
+        }
+        
+        [Test]
         public void TestSetGetTileOccupation()
         {
             var board = Container.Resolve<Board>();
             var expectedOccupation = TileOccupation.Player1;
             board.SetTile(_testBoardPosition, expectedOccupation);
-            Assert.AreEqual(board.IsTileOccupied(_testBoardPosition), expectedOccupation);
+            Assert.AreEqual(board.GetTile(_testBoardPosition), expectedOccupation);
         }
     }
 }
