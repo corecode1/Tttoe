@@ -17,9 +17,9 @@ namespace com.tttoe.tests
             {
                 Matrix = new[,]
                 {
-                    {'\n', '\n', '\n'},
-                    {'\n', '\n', '\n'},
-                    {'\n', '\n', '\n'}
+                    {'\0', '\0', '\0'},
+                    {'\0', '\0', '\0'},
+                    {'\0', '\0', '\0'}
                 },
                 ExpectedResult = GameOverCheckResult.None,
             },
@@ -27,9 +27,9 @@ namespace com.tttoe.tests
             {
                 Matrix = new[,]
                 {
-                    {'o', '\n', '\n'},
-                    {'o', '\n', '\n'},
-                    {'o', '\n', '\n'}
+                    {'o', '\0', '\0'},
+                    {'o', '\0', '\0'},
+                    {'o', '\0', '\0'}
                 },
                 ExpectedResult = GameOverCheckResult.Win,
                 ExpectedWinner = 'o'
@@ -38,9 +38,9 @@ namespace com.tttoe.tests
             {
                 Matrix = new[,]
                 {
-                    {'\n', 'x', '\n'},
-                    {'\n', 'x', '\n'},
-                    {'\n', 'x', '\n'}
+                    {'\0', 'x', '\0'},
+                    {'\0', 'x', '\0'},
+                    {'\0', 'x', '\0'}
                 },
                 ExpectedResult = GameOverCheckResult.Win,
                 ExpectedWinner = 'x'
@@ -49,9 +49,9 @@ namespace com.tttoe.tests
             {
                 Matrix = new[,]
                 {
-                    {'\n', 'x', '\n'},
+                    {'\0', 'x', '\0'},
                     {'o', 'o', 'o'},
-                    {'\n', 'x', '\n'}
+                    {'\0', 'x', '\0'}
                 },
                 ExpectedResult = GameOverCheckResult.Win,
                 ExpectedWinner = 'o'
@@ -60,8 +60,8 @@ namespace com.tttoe.tests
             {
                 Matrix = new[,]
                 {
-                    {'\n', 'x', '\n'},
-                    {'o', '\n', 'o'},
+                    {'\0', 'x', '\0'},
+                    {'o', '\0', 'o'},
                     {'x', 'x', 'x'}
                 },
                 ExpectedResult = GameOverCheckResult.Win,
@@ -71,9 +71,19 @@ namespace com.tttoe.tests
             {
                 Matrix = new[,]
                 {
-                    {'o', '\n', '\n'},
-                    {'\n', 'o', '\n'},
-                    {'\n', '\n', 'o'}
+                    {'\0', '\0', '\0'},
+                    {'\0', '\0', '\0'},
+                    {'\0', '\0', 'o'}
+                },
+                ExpectedResult = GameOverCheckResult.None,
+            },
+            new Board()
+            {
+                Matrix = new[,]
+                {
+                    {'o', '\0', '\0'},
+                    {'\0', 'o', '\0'},
+                    {'\0', '\0', 'o'}
                 },
                 ExpectedResult = GameOverCheckResult.Win,
                 ExpectedWinner = 'o'
@@ -82,9 +92,9 @@ namespace com.tttoe.tests
             {
                 Matrix = new[,]
                 {
-                    {'\n', '\n', 'x'},
-                    {'\n', 'x', '\n'},
-                    {'x', '\n', 'o'}
+                    {'\0', '\0', 'x'},
+                    {'\0', 'x', '\0'},
+                    {'x', '\0', 'o'}
                 },
                 ExpectedResult = GameOverCheckResult.Win,
                 ExpectedWinner = 'x'

@@ -1,7 +1,9 @@
+using System;
 using System.ComponentModel;
 using com.tttoe.runtime;
 using Moq;
 using NUnit.Framework;
+using UnityEngine;
 using Zenject;
 
 namespace com.tttoe.tests
@@ -16,7 +18,7 @@ namespace com.tttoe.tests
         {
             var board = GetMockBoard();
             Container.BindInstance(board.Object);
-            Container.Bind<Board>().AsSingle();
+            Container.Bind<BoardSolver>().AsSingle();
         }
 
         private Mock<IBoard> GetMockBoard()
@@ -25,12 +27,12 @@ namespace com.tttoe.tests
 
             board.SetupGet(mock => mock.Size).Returns(() => _currentBoard.GetLength(0));
             board
-                .Setup(mock => mock.GetTile(default))
+                .Setup(mock => mock.GetTile(It.IsAny<BoardTilePosition>()))
                 .Returns((BoardTilePosition position) =>
                     TileOccupation.FromChar(_currentBoard[position.Row, position.Column]));
 
             board
-                .Setup(mock => mock.IsTileOccupied(default))
+                .Setup(mock => mock.IsTileOccupied(It.IsAny<BoardTilePosition>()))
                 .Returns((BoardTilePosition position) =>
                 {
                     char symbol = _currentBoard[position.Row, position.Column];
@@ -38,6 +40,12 @@ namespace com.tttoe.tests
                 });
 
             return board;
+        }
+
+        [Test]
+        public void TestConstructor()
+        {
+            Assert.Throws<ArgumentNullException>(() => new BoardSolver(null));
         }
 
         [TestCaseSource(typeof(TestBoards), nameof(TestBoards.Boards))]
@@ -55,11 +63,11 @@ namespace com.tttoe.tests
         {
             _currentBoard = board.Matrix;
             var solver = Container.Resolve<BoardSolver>();
-            solver.CheckForGameOver(out char? winner);
+            solver.CheckForGameOver(out TileOccupation? winner);
 
             if (board.ExpectedWinner.HasValue)
             {
-                Assert.AreEqual(board.ExpectedWinner.Value, winner);
+                Assert.AreEqual(TileOccupation.FromChar(board.ExpectedWinner.Value), winner);
             }
             else
             {

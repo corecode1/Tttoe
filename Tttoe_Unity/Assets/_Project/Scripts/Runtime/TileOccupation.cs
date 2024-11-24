@@ -7,17 +7,17 @@ namespace com.tttoe.runtime
     [DebuggerDisplay("{GetName()}")]
     public readonly struct TileOccupation : IEquatable<TileOccupation>
     {
-        public static readonly TileOccupation NonOccupied = new(0);
-        public static readonly TileOccupation Player1 = new(1);
-        public static readonly TileOccupation Player2 = new(2);
+        public static readonly TileOccupation NonOccupied = new(default);
+        public static readonly TileOccupation Player1 = new('x');
+        public static readonly TileOccupation Player2 = new('o');
 
-        private static readonly Dictionary<int, string> NameLookup;
+        private static readonly Dictionary<char, string> NameLookup;
 
-        private readonly int _value;
+        private readonly char _value;
 
         static TileOccupation()
         {
-            NameLookup = new Dictionary<int, string>()
+            NameLookup = new Dictionary<char, string>()
             {
                 {NonOccupied._value, nameof(NonOccupied)},
                 {Player1._value, nameof(Player1)},
@@ -25,15 +25,25 @@ namespace com.tttoe.runtime
             };
         }
 
-        private TileOccupation(int value)
+        public static TileOccupation FromChar(char value)
+        {
+            if (!NameLookup.ContainsKey(value))
+            {
+                string message = string.Format("Trying to get TileOccupation from invalid char: {0}", value);
+                throw new ArgumentException(message);
+            }
+
+            return new TileOccupation(value);
+        }
+
+        private TileOccupation(char value)
         {
             _value = value;
         }
+
+        public string GetName() => NameLookup[_value];
         
-        public string GetName()
-        {
-            return NameLookup[_value];
-        }
+        public char GetChar() => _value;
 
         public static bool operator ==(TileOccupation tile1, TileOccupation tile2)
         {
