@@ -9,10 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6497225904756934529}
-  - component: {fileID: 6497225904756934528}
+  - component: {fileID: 4220351666604329812}
   - component: {fileID: 6497225904756934542}
+  - component: {fileID: 3554392306586937751}
+  - component: {fileID: 452479579}
   m_Layer: 0
-  m_Name: DecoratorContext
+  m_Name: Context
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,9 +33,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6497225904756934528
+--- !u!114 &4220351666604329812
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,16 +44,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 6497225904756934531}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed7323e8fdd8c26438c6485f2060dad0, type: 3}
+  m_Script: {fileID: 11500000, guid: 89715ad69b973a14899afa2c6730b30b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers: []
-  _monoInstallers: []
+  _monoInstallers:
+  - {fileID: 6497225904756934542}
+  - {fileID: 3554392306586937751}
+  - {fileID: 452479579}
   _installerPrefabs: []
-  _lateInstallers: []
-  _lateInstallerPrefabs: []
-  _lateScriptableObjectInstallers: []
-  _decoratedContractName: 
+  _autoRun: 1
+  OnPreInstall:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPostInstall:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPreResolve:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPostResolve:
+    m_PersistentCalls:
+      m_Calls: []
+  _parentNewObjectsUnderSceneContext: 0
+  _contractNames: []
+  _parentContractNames: []
 --- !u!114 &6497225904756934542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,3 +82,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _config: {fileID: 11400000, guid: e105c97d63f96a847a2ba4aa5df8fbd9, type: 2}
+--- !u!114 &3554392306586937751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6497225904756934531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a729776a5c7c44a4a5edb5919ae3b4e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &452479579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6497225904756934531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 199466eedfda46e1bacaae54a112ad5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _uiWidgetsList: {fileID: 0}
