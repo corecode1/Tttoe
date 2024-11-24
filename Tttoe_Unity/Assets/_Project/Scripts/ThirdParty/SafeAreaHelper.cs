@@ -21,7 +21,6 @@ namespace ThirdParty
             }
         }
 
-
         private void LateUpdate()
         {
             if (_lastSafeArea != Screen.safeArea)
