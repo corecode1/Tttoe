@@ -10,5 +10,15 @@ namespace com.tttoe.runtime
             Row = row;
             Column = column;
         }
+
+        public int ToSingleDimensionIndex(int boardSize)
+        {
+            return Row * boardSize + Column;
+        }
+
+        public string GetPositionString()
+        {
+            return string.Format("Tile position {0}:{1}", Row, Column);
+        }
     }
 }

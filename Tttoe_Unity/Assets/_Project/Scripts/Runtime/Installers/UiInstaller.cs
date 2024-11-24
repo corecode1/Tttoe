@@ -10,7 +10,7 @@ namespace com.tttoe.runtime.Installers
 
         public override void InstallBindings()
         {
-            Container.Bind<IBoardView>().FromInstance(_uiWidgetsList.BoardView).AsSingle();
+            Container.BindInterfacesAndSelfTo<BoardView>().FromInstance(_uiWidgetsList.BoardView).AsSingle();
         }
     }
 }

@@ -1,17 +1,19 @@
+using System;
 using com.tttoe.runtime.Interfaces;
-using ModestTree;
 using UnityEngine;
 using Zenject;
 
 namespace com.tttoe.runtime
 {
-    public class BoardPresenter : IInitializable
+    public class BoardPresenter : IInitializable, IDisposable
     {
-        private IBoardView _view;
-        private IBoard _board;
+        private readonly IBoardView _view;
+        private readonly IBoard _board;
+        private readonly IGameEvents _events;
 
-        public BoardPresenter(IBoard board, IBoardView view)
+        public BoardPresenter(IBoard board, IBoardView view, IGameEvents events)
         {
+            _events = events;
             _board = board;
             _view = view;
 
@@ -21,21 +23,20 @@ namespace com.tttoe.runtime
             }
         }
 
-        public void Initialize()
-        {
-            for (int row = 0; row < _board.Size; row++)
-            {
-                for (int col = 0; col < _board.Size; col++)
-                {
-                    SetTile(new BoardTilePosition(row, col), TileOccupation.NonOccupied);
-                }
-            }
-        }
-
-        public void SetTile(BoardTilePosition position, TileOccupation occupation)
+        public void SetTileOccupation(BoardTilePosition position, TileOccupation occupation)
         {
             _board.SetTile(position, occupation);
             _view.UpdateTile(position, occupation);
+        }
+
+        public void Initialize()
+        {
+            _view.OnTileClicked += _events.TriggerTileClicked;
+        }
+
+        public void Dispose()
+        {
+            _view.OnTileClicked -= _events.TriggerTileClicked;
         }
     }
 }

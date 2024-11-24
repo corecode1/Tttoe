@@ -10,6 +10,10 @@ namespace com.tttoe.runtime.Installers
         {
             Container.BindInterfacesAndSelfTo<BoardPresenter>().AsSingle();
             Container.BindInterfacesTo<Board>().AsSingle();
+            Container.BindInterfacesTo<GameEvents>().AsSingle();
+            Container.BindInterfacesAndSelfTo<Player>().AsSingle();
+            Container.BindFactory<TileOccupation, Player, Player.Factory>();
+            Container.BindInterfacesAndSelfTo<GameMode>().AsSingle();
         }
     }
 }

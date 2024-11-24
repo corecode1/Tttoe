@@ -6,7 +6,7 @@ namespace com.tttoe.runtime
     public class Main : MonoBehaviour
     {
         [Inject]
-        public void Construct(BoardPresenter board)
+        public void Construct(GameMode mode)
         {
             
         }
