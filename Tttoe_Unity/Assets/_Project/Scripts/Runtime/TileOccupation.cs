@@ -8,8 +8,8 @@ namespace com.tttoe.runtime
     public readonly struct TileOccupation : IEquatable<TileOccupation>
     {
         public static readonly TileOccupation NonOccupied = new(default);
-        public static readonly TileOccupation Player1 = new('x');
-        public static readonly TileOccupation Player2 = new('o');
+        public static readonly TileOccupation X = new('x');
+        public static readonly TileOccupation O = new('o');
 
         private static readonly Dictionary<char, string> NameLookup;
 
@@ -20,8 +20,8 @@ namespace com.tttoe.runtime
             NameLookup = new Dictionary<char, string>()
             {
                 {NonOccupied._value, nameof(NonOccupied)},
-                {Player1._value, nameof(Player1)},
-                {Player2._value, nameof(Player2)},
+                {X._value, nameof(X)},
+                {O._value, nameof(O)},
             };
         }
 

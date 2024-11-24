@@ -47,7 +47,7 @@ namespace com.tttoe.tests
         public void TestIsTileOccupiedReturnsTrue()
         {
             var board = Container.Resolve<Board>();
-            var expectedOccupation = TileOccupation.Player1;
+            var expectedOccupation = TileOccupation.X;
             board.SetTile(_testBoardPosition, expectedOccupation);
             Assert.IsTrue(board.IsTileOccupied(_testBoardPosition));
         }
@@ -56,7 +56,7 @@ namespace com.tttoe.tests
         public void TestSetGetTileOccupation()
         {
             var board = Container.Resolve<Board>();
-            var expectedOccupation = TileOccupation.Player1;
+            var expectedOccupation = TileOccupation.X;
             board.SetTile(_testBoardPosition, expectedOccupation);
             Assert.AreEqual(board.GetTile(_testBoardPosition), expectedOccupation);
         }

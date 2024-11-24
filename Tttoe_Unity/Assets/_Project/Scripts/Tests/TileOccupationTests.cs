@@ -26,13 +26,13 @@ namespace com.tttoe.tests
         [Test]
         public void TestEquality()
         {
-            Assert.AreEqual(TileOccupation.Player1, TileOccupation.Player1);
+            Assert.AreEqual(TileOccupation.X, TileOccupation.X);
         }
         
         [Test]
         public void TestInEquality()
         {
-            Assert.AreNotEqual(TileOccupation.Player1, TileOccupation.Player2);
+            Assert.AreNotEqual(TileOccupation.X, TileOccupation.O);
         }
     }
 }
