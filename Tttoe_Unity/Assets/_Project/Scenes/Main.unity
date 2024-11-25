@@ -2230,6 +2230,10 @@ PrefabInstance:
       propertyPath: _uiWidgetsList
       value: 
       objectReference: {fileID: 787691051}
+    - target: {fileID: 3554392306586937751, guid: beb69850655bb82429084f8964fe97f6, type: 3}
+      propertyPath: _main
+      value: 
+      objectReference: {fileID: 49606423}
     - target: {fileID: 6497225904756934529, guid: beb69850655bb82429084f8964fe97f6, type: 3}
       propertyPath: m_RootOrder
       value: 2

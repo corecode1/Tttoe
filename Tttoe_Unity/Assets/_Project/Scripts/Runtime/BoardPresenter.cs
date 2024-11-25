@@ -32,11 +32,13 @@ namespace com.tttoe.runtime
         public void Initialize()
         {
             _view.OnTileClicked += _events.TriggerTileClicked;
+            _events.OnMove += SetTileOccupation;
         }
 
         public void Dispose()
         {
             _view.OnTileClicked -= _events.TriggerTileClicked;
+            _events.OnMove += SetTileOccupation;
         }
     }
 }
