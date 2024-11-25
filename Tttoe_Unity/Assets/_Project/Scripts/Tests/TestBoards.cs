@@ -99,6 +99,16 @@ namespace com.tttoe.tests
                 ExpectedResult = GameOverCheckResult.Win,
                 ExpectedWinner = 'x'
             },
+            new Board()
+            {
+                Matrix = new[,]
+                {
+                    {'\0', '\0', '\0'},
+                    {'\0', '\0', '\0'},
+                    {'x', '\0', '\0'},
+                },
+                ExpectedResult = GameOverCheckResult.None,
+            },
         };
     }
 }

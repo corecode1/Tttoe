@@ -1,8 +1,9 @@
 using System;
+using com.tttoe.runtime.Interfaces;
 
 namespace com.tttoe.runtime
 {
-    public class BoardSolver
+    public class BoardSolver : ISolver
     {
         private readonly IBoard _board;
 
@@ -130,7 +131,7 @@ namespace com.tttoe.runtime
             int rowIndex, int colIndex)
         {
             bool isOnDiagonal = rowIndex + colIndex == _board.Size - 1;
-            bool isFirst = rowIndex == _board.Size - 1 && colIndex == 0;
+            bool isFirst = colIndex == _board.Size - 1 && rowIndex == 0;
 
             return ResolveDiagonal(diagonalOccupation, current, isOnDiagonal, isFirst);
         }
