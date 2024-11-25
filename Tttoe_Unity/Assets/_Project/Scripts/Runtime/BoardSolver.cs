@@ -3,18 +3,26 @@ using com.tttoe.runtime.Interfaces;
 
 namespace com.tttoe.runtime
 {
+    // Implementation intended to work on any board size and symbols number 
     public class BoardSolver : ISolver
     {
         private readonly IBoard _board;
 
-        private TileOccupation[] _columnsOccupations;
+        private readonly TileOccupation[] _columnsOccupations;
         private bool _freeTilesExist;
+
+        public int MinBoardSize => 3;
 
         public BoardSolver(IBoard board)
         {
             if (board == null)
             {
                 throw new ArgumentNullException(nameof(board));
+            }
+
+            if (board.Size < MinBoardSize)
+            {
+                throw new ArgumentOutOfRangeException(nameof(board.Size));
             }
 
             _board = board;
@@ -135,7 +143,7 @@ namespace com.tttoe.runtime
 
             return ResolveDiagonal(diagonalOccupation, current, isOnDiagonal, isFirst);
         }
-        
+
         private static TileOccupation ResolveDiagonal(TileOccupation diagonalOccupation, TileOccupation current,
             bool isOnDiagonal, bool isFirst)
         {

@@ -10,6 +10,7 @@ namespace com.tttoe.runtime
         public static readonly TileOccupation NonOccupied = new(default);
         public static readonly TileOccupation X = new('x');
         public static readonly TileOccupation O = new('o');
+        public static readonly TileOccupation A = new('a');
 
         private static readonly Dictionary<char, string> NameLookup;
 
@@ -22,6 +23,7 @@ namespace com.tttoe.runtime
                 {NonOccupied._value, nameof(NonOccupied)},
                 {X._value, nameof(X)},
                 {O._value, nameof(O)},
+                {A._value, nameof(A)},
             };
         }
 

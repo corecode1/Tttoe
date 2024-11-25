@@ -16,12 +16,12 @@ namespace com.tttoe.tests
         [SetUp]
         public void CommonInstall()
         {
-            var board = GetMockBoard();
+            var board = GetValidBordMock();
             Container.BindInstance(board.Object);
             Container.Bind<BoardSolver>().AsSingle();
         }
 
-        private Mock<IBoard> GetMockBoard()
+        private Mock<IBoard> GetValidBordMock()
         {
             var board = new Mock<IBoard>();
 
@@ -42,10 +42,24 @@ namespace com.tttoe.tests
             return board;
         }
 
+        private Mock<IBoard> GetInvalidSizeBoard()
+        {
+            var board = new Mock<IBoard>();
+            board.SetupGet(mock => mock.Size).Returns(0);
+            return board;
+        }
+
         [Test]
         public void TestConstructor()
         {
             Assert.Throws<ArgumentNullException>(() => new BoardSolver(null));
+        }
+        
+        [Test]
+        public void TestConstructorThrowsIfInvalidBoardSize()
+        {
+            var board = GetInvalidSizeBoard();
+            Assert.Throws<ArgumentOutOfRangeException>(() => new BoardSolver(board.Object));
         }
 
         [TestCaseSource(typeof(TestBoards), nameof(TestBoards.Boards))]
