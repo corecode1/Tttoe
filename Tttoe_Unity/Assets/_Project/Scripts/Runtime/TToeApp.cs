@@ -5,12 +5,11 @@ using Zenject;
 
 namespace com.tttoe.runtime
 {
-    public class Main : MonoBehaviour, IInitializable
+    public class TToeApp : IInitializable
     {
-        private IGameMode _gameMode;
+        private IUserVsAiGameMode _gameMode;
 
-        [Inject]
-        public void Construct(IUserVsUserGameMode userMode, IUserVsAiGameMode aiMode)
+        public TToeApp(IUserVsUserGameMode userMode, IUserVsAiGameMode aiMode)
         {
             _gameMode = aiMode;
         }
@@ -20,7 +19,7 @@ namespace com.tttoe.runtime
             StartGame();
         }
 
-        async UniTaskVoid StartGame()
+        public async UniTask StartGame()
         {
             await _gameMode.StartGame();
 
