@@ -16,7 +16,6 @@ namespace com.tttoe.runtime
 
         public void Initialize()
         {
-            StartGame();
         }
 
         public async UniTask StartGame()

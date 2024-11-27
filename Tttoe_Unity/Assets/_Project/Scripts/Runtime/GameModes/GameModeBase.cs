@@ -14,11 +14,13 @@ namespace com.tttoe.runtime
 
         private TileOccupation? _winner;
         private GameOverCheckResult _gameResult;
+        protected IFactory<PlayerType, TileOccupation, IPlayer> _playerFactory;
 
         protected abstract uint ExpectedPlayerCount { get; }
 
-        protected GameModeBase(ISolver solver)
+        protected GameModeBase(IFactory<PlayerType, TileOccupation, IPlayer> playerFactory, ISolver solver)
         {
+            _playerFactory = playerFactory;
             _solver = solver;
 
             // virtual member call in a constructor, but ok in our case

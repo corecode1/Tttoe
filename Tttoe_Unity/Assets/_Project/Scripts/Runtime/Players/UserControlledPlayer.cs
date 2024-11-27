@@ -5,10 +5,12 @@ namespace com.tttoe.runtime
 {
     public class UserControlledPlayer : PlayerBase, IUserControlledPlayer
     {
-        public UserControlledPlayer(IGameEvents events, TileOccupation occupation) : base(events, occupation)
+        public UserControlledPlayer(TileOccupation occupation, IGameEvents events) : base(events, occupation)
         {
         }
-        
+
+        protected override PlayerType Type { get; } = PlayerType.LocalUser;
+
         public override void Initialize()
         {
             _events.OnTileClicked += HandleTileClicked;

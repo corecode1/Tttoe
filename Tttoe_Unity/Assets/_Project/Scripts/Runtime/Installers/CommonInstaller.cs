@@ -21,8 +21,7 @@ namespace com.tttoe.runtime.Installers
             Container.Bind<TToeApp>().AsSingle();
             Container.BindInterfacesTo<TToeAppSceneRoot>().FromInstance(_toeAppSceneRoot);
             
-            Container.BindIFactory<TileOccupation, IUserControlledPlayer>().To<UserControlledPlayer>();
-            Container.BindIFactory<TileOccupation, IAiControlledPlayer>().To<AiControlledPlayer>();
+            Container.BindInterfacesTo<PlayerFactory>().AsSingle();
         }
     }
 }

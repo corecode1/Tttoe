@@ -12,6 +12,7 @@ namespace com.tttoe.runtime
             MoveFired
         }
 
+        protected abstract PlayerType Type { get; }
         protected State _state { get; private set; } = State.Idle;
         protected readonly IGameEvents _events;
 

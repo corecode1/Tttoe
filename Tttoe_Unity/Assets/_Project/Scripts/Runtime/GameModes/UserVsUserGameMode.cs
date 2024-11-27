@@ -7,20 +7,17 @@ namespace com.tttoe.runtime
 {
     public class UserVsUserGameMode : GameModeBase, IUserVsUserGameMode
     {
-        private readonly IFactory<TileOccupation, IUserControlledPlayer> _playerFactory;
-
-        public UserVsUserGameMode(IFactory<TileOccupation, IUserControlledPlayer> playerFactory, ISolver solver)
-            : base(solver)
+        public UserVsUserGameMode(IFactory<PlayerType, TileOccupation, IPlayer> playerFactory, ISolver solver)
+            : base(playerFactory, solver)
         {
-            _playerFactory = playerFactory;
         }
 
         protected override uint ExpectedPlayerCount => 2;
 
         protected override void FillPlayers(List<IPlayer> players)
         {
-            players.Add(_playerFactory.Create(TileOccupation.X));
-            players.Add(_playerFactory.Create(TileOccupation.O));
+            players.Add(_playerFactory.Create(PlayerType.LocalUser, TileOccupation.X));
+            players.Add(_playerFactory.Create(PlayerType.LocalUser, TileOccupation.O));
         }
     }
 }

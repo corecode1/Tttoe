@@ -8,12 +8,14 @@ namespace com.tttoe.runtime
         private readonly IMoveFinder _moveFinder;
         private readonly IConfig _config;
 
-        public AiControlledPlayer(IGameEvents events, TileOccupation occupation, IMoveFinder moveFinder, IConfig config)
+        public AiControlledPlayer(TileOccupation occupation, IGameEvents events, IMoveFinder moveFinder, IConfig config)
             : base(events, occupation)
         {
             _config = config;
             _moveFinder = moveFinder;
         }
+
+        protected override PlayerType Type { get; } = PlayerType.LocalAi;
 
         protected override void HandleMoveStart(State oldState, State newState)
         {
