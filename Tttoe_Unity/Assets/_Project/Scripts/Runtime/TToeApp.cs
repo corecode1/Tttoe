@@ -7,11 +7,11 @@ namespace com.tttoe.runtime
 {
     public class TToeApp : IInitializable
     {
-        private IUserVsAiGameMode _gameMode;
+        private IFactory<GameModeType, IGameMode> _gameModeFactory;
 
-        public TToeApp(IUserVsUserGameMode userMode, IUserVsAiGameMode aiMode)
+        public TToeApp(IFactory<GameModeType, IGameMode> gameModeFactory)
         {
-            _gameMode = aiMode;
+            _gameModeFactory = gameModeFactory;
         }
 
         public void Initialize()
@@ -20,13 +20,16 @@ namespace com.tttoe.runtime
 
         public async UniTask StartGame()
         {
-            await _gameMode.StartGame();
+            IGameMode gameMode = _gameModeFactory.Create(GameModeType.UserVsAi);
+            gameMode.Initialize();
+            
+            await gameMode.StartGame();
 
             GameOverCheckResult result = GameOverCheckResult.None;
 
             while (result == GameOverCheckResult.None)
             {
-                result = await _gameMode.MakeTurn();
+                result = await gameMode.MakeTurn();
             }
 
             Debug.Log($"Game over! result: {result}");

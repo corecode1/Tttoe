@@ -17,6 +17,7 @@ namespace com.tttoe.runtime
         protected IFactory<PlayerType, TileOccupation, IPlayer> _playerFactory;
 
         protected abstract uint ExpectedPlayerCount { get; }
+        protected abstract GameModeType Type { get; }
 
         protected GameModeBase(IFactory<PlayerType, TileOccupation, IPlayer> playerFactory, ISolver solver)
         {

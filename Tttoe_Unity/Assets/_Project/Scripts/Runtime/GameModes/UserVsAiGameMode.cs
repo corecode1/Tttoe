@@ -12,6 +12,7 @@ namespace com.tttoe.runtime
         }
 
         protected override uint ExpectedPlayerCount => 2;
+        protected override GameModeType Type { get; } = GameModeType.UserVsAi;
 
         protected override void FillPlayers(List<IPlayer> players)
         {

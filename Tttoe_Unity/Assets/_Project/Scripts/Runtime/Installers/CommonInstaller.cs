@@ -18,10 +18,11 @@ namespace com.tttoe.runtime.Installers
             Container.BindInterfacesTo<NaiveAiMovesFinder>().AsSingle();
             Container.BindInterfacesTo<UserVsUserGameMode>().AsSingle();
             Container.BindInterfacesTo<UserVsAiGameMode>().AsSingle();
-            Container.Bind<TToeApp>().AsSingle();
             Container.BindInterfacesTo<TToeAppSceneRoot>().FromInstance(_toeAppSceneRoot);
+            Container.Bind<TToeApp>().AsSingle();
             
             Container.BindInterfacesTo<PlayerFactory>().AsSingle();
+            Container.BindInterfacesTo<GameModeFactory>().AsSingle();
         }
     }
 }
