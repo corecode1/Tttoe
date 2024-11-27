@@ -14,10 +14,13 @@ namespace com.tttoe.runtime.Installers
             Container.BindInterfacesTo<Board>().AsSingle();
             Container.BindInterfacesTo<GameEvents>().AsSingle();
             Container.BindInterfacesTo<BoardSolver>().AsSingle();
-            Container.BindInterfacesAndSelfTo<PlayerVsPlayerGameMode>().AsSingle();
+            Container.BindInterfacesTo<NaiveAiMovesFinder>().AsSingle();
+            Container.BindInterfacesTo<UserVsUserGameMode>().AsSingle();
+            Container.BindInterfacesTo<UserVsAiGameMode>().AsSingle();
             Container.BindInterfacesTo<Main>().FromInstance(_main);
             
             Container.BindIFactory<TileOccupation, IUserControlledPlayer>().To<UserControlledPlayer>();
+            Container.BindIFactory<TileOccupation, IAiControlledPlayer>().To<AiControlledPlayer>();
         }
     }
 }

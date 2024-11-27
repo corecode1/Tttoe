@@ -1,3 +1,4 @@
+using com.tttoe.runtime.Interfaces;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
@@ -6,12 +7,12 @@ namespace com.tttoe.runtime
 {
     public class Main : MonoBehaviour, IInitializable
     {
-        private PlayerVsPlayerGameMode _gameMode;
+        private IGameMode _gameMode;
 
         [Inject]
-        public void Construct(PlayerVsPlayerGameMode mode)
+        public void Construct(IUserVsUserGameMode userMode, IUserVsAiGameMode aiMode)
         {
-            _gameMode = mode;
+            _gameMode = aiMode;
         }
 
         public void Initialize()

@@ -14,4 +14,8 @@ namespace com.tttoe.runtime.Interfaces
     public interface IUserControlledPlayer : IPlayer
     {
     }
+    
+    public interface IAiControlledPlayer : IPlayer
+    {
+    }
 }

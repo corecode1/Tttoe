@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using com.tttoe.runtime.Interfaces;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -6,24 +7,27 @@ using Zenject;
 
 namespace com.tttoe.runtime
 {
-    public class PlayerVsPlayerGameMode : IGameMode, IInitializable, IDisposable
+    public abstract class GameModeBase : IGameMode, IInitializable, IDisposable
     {
-        private readonly IPlayer[] _players;
+        private readonly List<IPlayer> _players;
         private readonly ISolver _solver;
 
         private TileOccupation? _winner;
         private GameOverCheckResult _gameResult;
 
-        public PlayerVsPlayerGameMode(IFactory<TileOccupation, IUserControlledPlayer> playerFactory, ISolver solver)
+        protected abstract uint ExpectedPlayerCount { get; }
+
+        protected GameModeBase(ISolver solver)
         {
-            IFactory<TileOccupation, IUserControlledPlayer> f = playerFactory;
             _solver = solver;
-            _players = new IPlayer[]
-            {
-                playerFactory.Create(TileOccupation.X),
-                playerFactory.Create(TileOccupation.O),
-            };
+
+            // virtual member call in a constructor, but ok in our case
+            // since inheritors are expected to just return constant value
+            // that doesn't depend on anything run in a constructor
+            _players = new List<IPlayer>((int)ExpectedPlayerCount);
         }
+
+        protected abstract void FillPlayers(List<IPlayer> players);
 
         public UniTask StartGame()
         {
@@ -34,7 +38,7 @@ namespace com.tttoe.runtime
         {
             GameOverCheckResult result = GameOverCheckResult.None;
 
-            for (var i = 0; i < _players.Length; i++)
+            for (var i = 0; i < _players.Count; i++)
             {
                 IPlayer player = _players[i];
                 Debug.Log($"Player {player.Occupation.GetChar()} Turn");
@@ -59,6 +63,8 @@ namespace com.tttoe.runtime
 
         public void Initialize()
         {
+            FillPlayers(_players);
+
             foreach (IPlayer player in _players)
             {
                 player.Initialize();   
