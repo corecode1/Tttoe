@@ -31,14 +31,23 @@ namespace com.tttoe.runtime
 
         public void Initialize()
         {
+            _view.Initialize();
             _view.OnTileClicked += _events.TriggerTileClicked;
             _events.OnMove += SetTileOccupation;
+            _events.OnMatchStart += HandleMatchStart;
         }
 
         public void Dispose()
         {
             _view.OnTileClicked -= _events.TriggerTileClicked;
-            _events.OnMove += SetTileOccupation;
+            _events.OnMove -= SetTileOccupation;
+            _events.OnMatchStart -= HandleMatchStart;
+            _view.Dispose();
+        }
+
+        private void HandleMatchStart()
+        {
+            _view.Activate(true);
         }
     }
 }

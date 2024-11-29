@@ -5,15 +5,17 @@ using Zenject;
 
 namespace com.tttoe.runtime
 {
-    public class BoardView : MonoBehaviour, IBoardView, IInitializable, IDisposable
+    public class BoardView : UiPanel, IBoardView
     {
         [SerializeField] private TileView[] _tiles;
         [field: SerializeField] public int Size { get; private set; } = 3;
 
         public event Action<BoardTilePosition> OnTileClicked;
 
-        public void Initialize()
+        public override void Initialize()
         {
+            base.Initialize();
+
             for (int row = 0; row < Size; row++)
             {
                 for (int col = 0; col < Size; col++)
@@ -28,7 +30,7 @@ namespace com.tttoe.runtime
             }
         }
         
-        public void Dispose()
+        public override void Dispose()
         {
             foreach (TileView tile in _tiles)
             {
