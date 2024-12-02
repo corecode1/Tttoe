@@ -1,5 +1,6 @@
 using System;
 using com.tttoe.runtime;
+using com.tttoe.runtime.Interfaces;
 
 namespace com.tttoe.runtime
 {
@@ -7,10 +8,12 @@ namespace com.tttoe.runtime
     {
         event Action<BoardTilePosition> OnTileClicked;
         event Action<BoardTilePosition, TileOccupation> OnMove;
-        event Action OnMatchStart;
+        event Action<GameModeType> OnMatchStart;
+        event Action<IMatchModel> OnMatchEnd;
 
         void TriggerTileClicked(BoardTilePosition position);
         void TriggerMove(BoardTilePosition position, TileOccupation occupation);
-        void TriggerMatchStart();
+        void TriggerMatchStart(GameModeType gameModeType);
+        void TriggerMatchEnd(IMatchModel finishedMatch);
     }
 }

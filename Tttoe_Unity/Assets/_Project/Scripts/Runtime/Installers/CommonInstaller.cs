@@ -7,7 +7,7 @@ namespace com.tttoe.runtime.Installers
 {
     public class CommonInstaller : MonoInstaller<CommonInstaller>
     {
-        [FormerlySerializedAs("_main")] [SerializeField] private TToeAppSceneRoot _toeAppSceneRoot;
+        [SerializeField] private TToeAppSceneRoot _toeAppSceneRoot;
 
         public override void InstallBindings()
         {
@@ -18,11 +18,14 @@ namespace com.tttoe.runtime.Installers
             Container.BindInterfacesTo<NaiveAiMovesFinder>().AsSingle();
             Container.BindInterfacesTo<UserVsUserGameMode>().AsSingle();
             Container.BindInterfacesTo<UserVsAiGameMode>().AsSingle();
+            Container.BindInterfacesAndSelfTo<MatchPresenter>().AsSingle();
             Container.BindInterfacesTo<TToeAppSceneRoot>().FromInstance(_toeAppSceneRoot);
             Container.Bind<TToeApp>().AsSingle();
-            
+
             Container.BindInterfacesTo<PlayerFactory>().AsSingle();
             Container.BindInterfacesTo<GameModeFactory>().AsSingle();
+            Container.BindInterfacesTo<GameModeProvider>().AsSingle();
+            Container.BindIFactory<GameModeType, IMatchModel>().To<MatchModel>().AsSingle();
         }
     }
 }

@@ -45,7 +45,7 @@ namespace com.tttoe.runtime
             _view.Dispose();
         }
 
-        private void HandleMatchStart()
+        private void HandleMatchStart(GameModeType type)
         {
             _view.Activate(true);
         }

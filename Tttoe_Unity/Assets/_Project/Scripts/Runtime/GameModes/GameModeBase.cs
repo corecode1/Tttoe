@@ -7,17 +7,17 @@ using Zenject;
 
 namespace com.tttoe.runtime
 {
-    public abstract class GameModeBase : IGameMode, IInitializable, IDisposable
+    public abstract class GameModeBase : IGameMode
     {
         private readonly List<IPlayer> _players;
         private readonly ISolver _solver;
 
         private TileOccupation? _winner;
         private GameOverCheckResult _gameResult;
-        protected IFactory<PlayerType, TileOccupation, IPlayer> _playerFactory;
+        protected readonly IFactory<PlayerType, TileOccupation, IPlayer> _playerFactory;
 
         protected abstract uint ExpectedPlayerCount { get; }
-        protected abstract GameModeType Type { get; }
+        public abstract GameModeType Type { get; }
 
         protected GameModeBase(IFactory<PlayerType, TileOccupation, IPlayer> playerFactory, ISolver solver)
         {
@@ -40,6 +40,11 @@ namespace com.tttoe.runtime
         public async UniTask<GameOverCheckResult> MakeTurn()
         {
             GameOverCheckResult result = GameOverCheckResult.None;
+
+            if (_players.Count == 0)
+            {
+                throw new Exception("Game mode need to be initialized before making a turn");
+            }
 
             for (var i = 0; i < _players.Count; i++)
             {

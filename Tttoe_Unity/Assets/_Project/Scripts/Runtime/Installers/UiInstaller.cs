@@ -12,6 +12,7 @@ namespace com.tttoe.runtime.Installers
         {
             Container.Bind<IBoardView>().To<BoardView>().FromInstance(_uiWidgetsList.BoardView).AsSingle();
             Container.Bind<IAppView>().To<UiPanelMainMenu>().FromInstance(_uiWidgetsList.MainMenu).AsSingle();
+            Container.Bind<IMatchView>().To<MatchView>().FromInstance(_uiWidgetsList.MatchView).AsSingle();
         }
     }
 }
