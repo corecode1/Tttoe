@@ -7,11 +7,17 @@ namespace com.tttoe.runtime
     {
         private readonly IAppView _view;
         private readonly IGameEvents _events;
+        private readonly BoardPresenter _boardPresenter;
+        private readonly MatchPresenter _matchPresenter;
 
         public TToeApp(
             IAppView view,
-            IGameEvents events)
+            IGameEvents events,
+            BoardPresenter boardPresenter,
+            MatchPresenter matchPresenter)
         {
+            _matchPresenter = matchPresenter;
+            _boardPresenter = boardPresenter;
             _events = events;
             _view = view;
         }
@@ -19,12 +25,17 @@ namespace com.tttoe.runtime
         public void Initialize()
         {
             _view.OnGameModeSelected += HandleGameModeSelected;
+            
+            _boardPresenter.Initialize();
+            _matchPresenter.Initialize();
             _view.Initialize();
             _view.Activate(true);
         }
 
         public void Dispose()
         {
+            _boardPresenter.Dispose();
+            _matchPresenter.Dispose();
             _view.Dispose();
         }
 
