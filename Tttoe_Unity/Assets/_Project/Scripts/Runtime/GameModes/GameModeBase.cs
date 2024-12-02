@@ -18,6 +18,8 @@ namespace com.tttoe.runtime
 
         protected abstract uint ExpectedPlayerCount { get; }
         public abstract GameModeType Type { get; }
+        public IPlayer CurrentPlayer { get; private set; }
+        public event Action<IPlayer> OnPlayerChanged;
 
         protected GameModeBase(IFactory<PlayerType, TileOccupation, IPlayer> playerFactory, ISolver solver)
         {
@@ -27,13 +29,14 @@ namespace com.tttoe.runtime
             // virtual member call in a constructor, but ok in our case
             // since inheritors are expected to just return constant value
             // that doesn't depend on anything run in a constructor
-            _players = new List<IPlayer>((int)ExpectedPlayerCount);
+            _players = new List<IPlayer>((int) ExpectedPlayerCount);
         }
 
         protected abstract void FillPlayers(List<IPlayer> players);
 
         public UniTask StartGame()
         {
+            _winner = null;
             return UniTask.CompletedTask;
         }
 
@@ -48,14 +51,18 @@ namespace com.tttoe.runtime
 
             for (var i = 0; i < _players.Count; i++)
             {
-                IPlayer player = _players[i];
-                Debug.Log($"Player {player.Occupation.GetChar()} Turn");
-                await player.MakeTurn();
+                CurrentPlayer = _players[i];
+                OnPlayerChanged?.Invoke(CurrentPlayer);
+
+                Debug.Log($"Player {CurrentPlayer.Occupation.GetChar()} Turn");
+                await CurrentPlayer.MakeTurn();
 
                 result = _solver.CheckForGameOver(out _winner);
 
-                if (result == GameOverCheckResult.Win)
+                if (result != GameOverCheckResult.None)
                 {
+                    CurrentPlayer = null;
+                    OnPlayerChanged?.Invoke(CurrentPlayer);
                     return result;
                 }
             }
@@ -75,7 +82,7 @@ namespace com.tttoe.runtime
 
             foreach (IPlayer player in _players)
             {
-                player.Initialize();   
+                player.Initialize();
             }
         }
 
@@ -83,7 +90,7 @@ namespace com.tttoe.runtime
         {
             foreach (IPlayer player in _players)
             {
-                player.Dispose();   
+                player.Dispose();
             }
         }
     }

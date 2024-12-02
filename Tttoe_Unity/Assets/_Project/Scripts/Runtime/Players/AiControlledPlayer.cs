@@ -30,7 +30,7 @@ namespace com.tttoe.runtime
         private async UniTask TriggerMoveAfterDelay(BoardTilePosition move)
         {
             await UniTask.Delay(_config.AiMovesDelayMs);
-            _events.TriggerMove(move, Occupation);
+            _events.TriggerMoveRequested(move, Occupation);
             SignalMoveEnded();
         }
     }

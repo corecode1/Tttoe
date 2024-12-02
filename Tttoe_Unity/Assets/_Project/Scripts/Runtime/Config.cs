@@ -8,5 +8,8 @@ namespace com.tttoe.runtime
     {
         [field: SerializeField] public int BoardSize { get; private set; } = 3;
         [field: SerializeField] public int AiMovesDelayMs { get; private set; } = 500;
+        [field: SerializeField] public uint InitialReverts { get; private set; } = 2;
+        [field: SerializeField] public uint RevertsPerTurn { get; private set; } = 0;
+        [field: SerializeField] public int RevertsDelayMs { get; private set; } = 500;
     }
 }

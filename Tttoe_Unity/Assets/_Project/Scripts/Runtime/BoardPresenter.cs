@@ -23,26 +23,36 @@ namespace com.tttoe.runtime
             }
         }
 
-        public void SetTileOccupation(BoardTilePosition position, TileOccupation occupation)
-        {
-            _board.SetTile(position, occupation);
-            _view.UpdateTile(position, occupation);
-        }
-
         public void Initialize()
         {
             _view.Initialize();
             _view.OnTileClicked += _events.TriggerTileClicked;
-            _events.OnMove += SetTileOccupation;
+            _events.OnMoveRequested += SetTileOccupation;
+            _events.OnMoveRevert += RevertMove;
             _events.OnMatchStart += HandleMatchStart;
         }
 
         public void Dispose()
         {
             _view.OnTileClicked -= _events.TriggerTileClicked;
-            _events.OnMove -= SetTileOccupation;
+            _events.OnMoveRequested -= SetTileOccupation;
+            _events.OnMoveRevert -= RevertMove;
             _events.OnMatchStart -= HandleMatchStart;
             _view.Dispose();
+        }
+
+        private void SetTileOccupation(BoardTilePosition position, TileOccupation next)
+        {
+            TileOccupation previousOccupation = _board.GetTile(position);
+            _board.SetTile(position, next);
+            _view.UpdateTile(position, next);
+            _events.TriggerMoveExecuted(position, previousOccupation, next);
+        }
+
+        private void RevertMove(BoardTilePosition position, TileOccupation prev, TileOccupation next)
+        {
+            _board.SetTile(position, prev);
+            _view.UpdateTile(position, prev);
         }
 
         private void HandleMatchStart(GameModeType type)

@@ -28,7 +28,7 @@ namespace com.tttoe.runtime
                 return;
             }
 
-            _events.TriggerMove(position, Occupation);
+            _events.TriggerMoveRequested(position, Occupation);
             SignalMoveEnded();
         }
     }

@@ -13,3 +13,7 @@ MonoBehaviour:
   m_Name: Config
   m_EditorClassIdentifier: 
   <BoardSize>k__BackingField: 3
+  <AiMovesDelayMs>k__BackingField: 200
+  <InitialReverts>k__BackingField: 0
+  <RevertsPerTurn>k__BackingField: 2
+  <RevertsDelayMs>k__BackingField: 160

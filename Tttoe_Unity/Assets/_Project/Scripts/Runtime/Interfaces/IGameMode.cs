@@ -7,6 +7,8 @@ namespace com.tttoe.runtime.Interfaces
     public interface IGameMode : IInitializable, IDisposable
     {
         public GameModeType Type { get; }
+        public IPlayer CurrentPlayer { get; }
+        public event Action<IPlayer> OnPlayerChanged;
         public UniTask StartGame();
         public UniTask<GameOverCheckResult> MakeTurn();
         public bool TryGetWinner(out TileOccupation? winner);
