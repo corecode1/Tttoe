@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace com.tttoe.runtime
 {
-    public class UiPanelMainMenu : UiPanel, IAppView
+    public class UiPanelMainMenu : UiPanel, IStartScreen
     {
         [SerializeField] private Button _userVsUserButton;
         [SerializeField] private Button _userVsAiButton;

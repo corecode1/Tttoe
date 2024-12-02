@@ -148,6 +148,7 @@ namespace com.tttoe.runtime
             _gameMode.OnPlayerChanged -= HandlePlayerChanged;
 
             IMatchModel modelToDispatch = _model;
+            modelToDispatch.SetResult(result, winner);
             _view.Activate(false);
             _model = null;
             _gameMode = null;

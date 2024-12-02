@@ -1,17 +1,20 @@
 using System;
+using com.tttoe.runtime.Interfaces;
 using Zenject;
 
 namespace com.tttoe.runtime
 {
     public class TToeApp : IInitializable, IDisposable
     {
-        private readonly IAppView _view;
+        private readonly IStartScreen _startScreen;
         private readonly IGameEvents _events;
         private readonly BoardPresenter _boardPresenter;
         private readonly MatchPresenter _matchPresenter;
+        private readonly IGameOverScreen _gameOverScreen;
 
         public TToeApp(
-            IAppView view,
+            IStartScreen startScreen,
+            IGameOverScreen gameOverScreen,
             IGameEvents events,
             BoardPresenter boardPresenter,
             MatchPresenter matchPresenter)
@@ -19,29 +22,39 @@ namespace com.tttoe.runtime
             _matchPresenter = matchPresenter;
             _boardPresenter = boardPresenter;
             _events = events;
-            _view = view;
+            _startScreen = startScreen;
+            _gameOverScreen = gameOverScreen;
         }
 
         public void Initialize()
         {
-            _view.OnGameModeSelected += HandleGameModeSelected;
+            _startScreen.OnGameModeSelected += HandleGameModeSelected;
             
             _boardPresenter.Initialize();
             _matchPresenter.Initialize();
-            _view.Initialize();
-            _view.Activate(true);
+            _startScreen.Initialize();
+            _gameOverScreen.Initialize();
+            _startScreen.Activate(true);
+            _events.OnMatchEnd += HandleMatchEnd;
         }
 
         public void Dispose()
         {
+            _events.OnMatchEnd -= HandleMatchEnd;
             _boardPresenter.Dispose();
             _matchPresenter.Dispose();
-            _view.Dispose();
+            _startScreen.Dispose();
+            _gameOverScreen.Dispose();
+        }
+
+        private void HandleMatchEnd(IMatchModel match)
+        {
+            _gameOverScreen.Activate(true);
         }
 
         private void HandleGameModeSelected(GameModeType gameMode)
         {
-            _view.Activate(false);
+            _startScreen.Activate(false);
             StartMatch(gameMode);
         }
 

@@ -10,12 +10,14 @@ namespace com.tttoe.runtime
         private readonly IBoardView _view;
         private readonly IBoard _board;
         private readonly IGameEvents _events;
+        private readonly IConfig _config;
 
-        public BoardPresenter(IBoard board, IBoardView view, IGameEvents events)
+        public BoardPresenter(IBoard board, IBoardView view, IGameEvents events, IConfig config)
         {
             _events = events;
             _board = board;
             _view = view;
+            _config = config;
 
             if (_board.Size != view.Size)
             {
@@ -30,6 +32,7 @@ namespace com.tttoe.runtime
             _events.OnMoveRequested += SetTileOccupation;
             _events.OnMoveRevert += RevertMove;
             _events.OnMatchStart += HandleMatchStart;
+            _events.OnMatchEnd += HandleMatchEnd;
         }
 
         public void Dispose()
@@ -58,6 +61,11 @@ namespace com.tttoe.runtime
         private void HandleMatchStart(GameModeType type)
         {
             _view.Activate(true);
+        }
+
+        private void HandleMatchEnd(IMatchModel _)
+        {
+            _view.Activate(_config.ShowBoardOnGameOver);
         }
     }
 }

@@ -8,6 +8,8 @@ namespace com.tttoe.runtime
         private readonly List<MatchMove> _moves;
 
         public uint AllowedReverts { get; private set; }
+        public GameOverCheckResult Result { get; private set; }
+        public TileOccupation? Winner { get; private set; }
         public int MovesCount => _moves.Count;
         public GameModeType GameModeType { get; }
         public IReadOnlyList<MatchMove> Moves => _moves;
@@ -34,6 +36,12 @@ namespace com.tttoe.runtime
         public void AddReverts(uint amount)
         {
             AllowedReverts += amount;
+        }
+
+        public void SetResult(GameOverCheckResult result, TileOccupation? winner)
+        {
+            Result = result;
+            Winner = winner;
         }
     }
 }

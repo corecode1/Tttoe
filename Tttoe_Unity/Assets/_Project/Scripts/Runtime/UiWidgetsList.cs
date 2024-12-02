@@ -9,5 +9,6 @@ namespace com.tttoe.runtime.Installers
         [field:SerializeField] public BoardView BoardView { get; private set; }
         [field:SerializeField] public UiPanelMainMenu MainMenu { get; private set; }
         [field:SerializeField] public MatchView MatchView { get; private set; }
+        [field:SerializeField] public UiPanelGameOver GameOverView { get; private set; }
     }
 }
