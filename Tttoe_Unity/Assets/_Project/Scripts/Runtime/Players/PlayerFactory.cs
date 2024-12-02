@@ -21,7 +21,8 @@ namespace com.tttoe.runtime
             switch (type)
             {
                 case PlayerType.LocalUser:
-                    player = new UserControlledPlayer(occupation, events);
+                    IBoard board = _container.Resolve<IBoard>();
+                    player = new UserControlledPlayer(occupation, events, board);
                     break;
                 case PlayerType.LocalAi:
                     player = CreateAiPlayer(occupation, events);

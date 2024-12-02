@@ -11,7 +11,7 @@ namespace com.tttoe.runtime.Interfaces
         public event Action<IPlayer> OnPlayerChanged;
         public UniTask StartGame();
         public UniTask<GameOverCheckResult> MakeTurn();
-        public bool TryGetWinner(out TileOccupation? winner);
+        public TileOccupation? GetWinner();
     }
 
     public interface IUserVsUserGameMode : IGameMode

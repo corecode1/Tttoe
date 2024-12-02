@@ -110,7 +110,7 @@ namespace com.tttoe.runtime
             _view.SetRevertAvailability(GetRevertAvailability());
         }
 
-        private async UniTask<TileOccupation> RunMatch()
+        private async UniTask RunMatch()
         {
             await _gameMode.StartGame();
 
@@ -124,13 +124,13 @@ namespace com.tttoe.runtime
                 UpdateRevertAvailability();
             }
 
-            if (!_gameMode.TryGetWinner(out TileOccupation? winner) || !winner.HasValue)
+            TileOccupation? winner = _gameMode.GetWinner();
+            if (result != GameOverCheckResult.Tie && !winner.HasValue)
             {
                 throw new Exception("No winner after successful GameOverCheck");
             }
 
             EndMatch(result, winner);
-            return winner.Value;
         }
 
         private async UniTask WaitForRevertEnd()

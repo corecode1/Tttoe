@@ -5,8 +5,11 @@ namespace com.tttoe.runtime
 {
     public class UserControlledPlayer : PlayerBase, IUserControlledPlayer
     {
-        public UserControlledPlayer(TileOccupation occupation, IGameEvents events) : base(events, occupation)
+        private IBoard _board;
+
+        public UserControlledPlayer(TileOccupation occupation, IGameEvents events, IBoard board) : base(events, occupation)
         {
+            _board = board;
         }
 
         protected override PlayerType Type { get; } = PlayerType.LocalUser;
@@ -24,6 +27,11 @@ namespace com.tttoe.runtime
         private void HandleTileClicked(BoardTilePosition position)
         {
             if (!CanTriggerMove())
+            {
+                return;
+            }
+
+            if (_board.IsTileOccupied(position))
             {
                 return;
             }

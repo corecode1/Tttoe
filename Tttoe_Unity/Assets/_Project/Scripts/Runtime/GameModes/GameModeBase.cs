@@ -58,7 +58,6 @@ namespace com.tttoe.runtime
                 await CurrentPlayer.MakeTurn();
 
                 result = _solver.CheckForGameOver(out _winner);
-
                 if (result != GameOverCheckResult.None)
                 {
                     CurrentPlayer = null;
@@ -70,10 +69,9 @@ namespace com.tttoe.runtime
             return result;
         }
 
-        public bool TryGetWinner(out TileOccupation? winner)
+        public TileOccupation? GetWinner()
         {
-            winner = _winner;
-            return _winner.HasValue;
+            return _winner;
         }
 
         public void Initialize()
