@@ -33,6 +33,7 @@ namespace com.tttoe.runtime
             _events.OnMoveRevert += RevertMove;
             _events.OnMatchStart += HandleMatchStart;
             _events.OnMatchEnd += HandleMatchEnd;
+            _events.OnPlayAgain += HandlePlayAgain;
         }
 
         public void Dispose()
@@ -41,6 +42,7 @@ namespace com.tttoe.runtime
             _events.OnMoveRequested -= SetTileOccupation;
             _events.OnMoveRevert -= RevertMove;
             _events.OnMatchStart -= HandleMatchStart;
+            _events.OnPlayAgain -= HandlePlayAgain;
             _view.Dispose();
         }
 
@@ -61,6 +63,13 @@ namespace com.tttoe.runtime
         private void HandleMatchStart(GameModeType type)
         {
             _view.Activate(true);
+        }
+
+        private void HandlePlayAgain()
+        {
+            _view.Activate(false);
+            _view.Reset();
+            _board.Reset();
         }
 
         private void HandleMatchEnd(IMatchModel _)

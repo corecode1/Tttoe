@@ -7,10 +7,10 @@ namespace com.tttoe.runtime
     public class TToeApp : IInitializable, IDisposable
     {
         private readonly IStartScreen _startScreen;
+        private readonly IGameOverScreen _gameOverScreen;
         private readonly IGameEvents _events;
         private readonly BoardPresenter _boardPresenter;
         private readonly MatchPresenter _matchPresenter;
-        private readonly IGameOverScreen _gameOverScreen;
 
         public TToeApp(
             IStartScreen startScreen,
@@ -29,6 +29,7 @@ namespace com.tttoe.runtime
         public void Initialize()
         {
             _startScreen.OnGameModeSelected += HandleGameModeSelected;
+            _gameOverScreen.OnPlayAgain += HandlePlayAgain;
             
             _boardPresenter.Initialize();
             _matchPresenter.Initialize();
@@ -41,6 +42,8 @@ namespace com.tttoe.runtime
         public void Dispose()
         {
             _events.OnMatchEnd -= HandleMatchEnd;
+            _gameOverScreen.OnPlayAgain -= HandlePlayAgain;
+
             _boardPresenter.Dispose();
             _matchPresenter.Dispose();
             _startScreen.Dispose();
@@ -56,6 +59,14 @@ namespace com.tttoe.runtime
         {
             _startScreen.Activate(false);
             StartMatch(gameMode);
+        }
+
+        private void HandlePlayAgain()
+        {
+            _gameOverScreen.Activate(false);
+            _startScreen.Activate(true);
+            
+            _events.TriggerPlayAgain();
         }
 
         private void StartMatch(GameModeType gameModeType)

@@ -34,5 +34,10 @@ namespace com.tttoe.runtime
         {
             return _tiles[position.Row, position.Column] != TileOccupation.NonOccupied;
         }
+
+        public void Reset()
+        {
+            Array.Clear(_tiles, 0, _tiles.Length);
+        }
     }
 }

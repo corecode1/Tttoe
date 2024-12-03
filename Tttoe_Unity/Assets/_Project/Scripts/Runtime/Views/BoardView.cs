@@ -16,6 +16,11 @@ namespace com.tttoe.runtime
         {
             base.Initialize();
 
+            Reset();
+        }
+
+        public void Reset()
+        {
             for (int row = 0; row < Size; row++)
             {
                 for (int col = 0; col < Size; col++)
@@ -29,7 +34,7 @@ namespace com.tttoe.runtime
                 }
             }
         }
-        
+
         public override void Dispose()
         {
             foreach (TileView tile in _tiles)

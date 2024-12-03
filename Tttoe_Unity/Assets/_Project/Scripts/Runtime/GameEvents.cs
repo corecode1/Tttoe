@@ -12,6 +12,7 @@ namespace com.tttoe.runtime
         public event Action<BoardTilePosition, TileOccupation, TileOccupation> OnMoveRevert;
         public event Action<GameModeType> OnMatchStart;
         public event Action<IMatchModel> OnMatchEnd;
+        public event Action OnPlayAgain;
 
         public void TriggerTileClicked(BoardTilePosition position) => OnTileClicked?.Invoke(position);
 
@@ -28,5 +29,7 @@ namespace com.tttoe.runtime
         {
             OnMoveRevert?.Invoke(position, prev, next);
         }
+
+        public void TriggerPlayAgain() => OnPlayAgain?.Invoke();
     }
 }
